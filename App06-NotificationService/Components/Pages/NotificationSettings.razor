@@ -1,0 +1,32 @@
+﻿@using App06_NotificationService.Services
+@inject NotificationConfig Config
+
+<div class="card shadow-sm border-0" style="border-radius: 12px; overflow: hidden;">
+    <div class="card-header text-white py-3" style="background-color: #4f46e5;">
+        <h5 class="mb-0 fw-bold"><i class="bi bi-sliders me-2"></i>Notification Settings</h5>
+    </div>
+    <div class="card-body bg-white p-4">
+
+        <div class="mb-3 text-start">
+            <label class="form-label fw-semibold text-muted small text-uppercase">Default Count</label>
+            <input type="number" class="form-control" @bind-value="Config.DefaultNumberOfNotifications" @bind-value:event="oninput" @onchange="TriggerConfigUpdate" min="1" max="10" />
+        </div>
+
+        <div class="mb-3 text-start">
+            <label class="form-label fw-semibold text-muted small text-uppercase">Notification Style</label>
+            <select class="form-select" @bind="Config.NotificationStyle" @bind:after="TriggerConfigUpdate">
+                <option value="Compact">Compact</option>
+                <option value="Detailed">Detailed</option>
+            </select>
+        </div>
+
+    </div>
+</div>
+
+@code {
+    private void TriggerConfigUpdate()
+    {
+        // Broadcast change globally to make it work live
+        Config.NotifyChanged();
+    }
+}

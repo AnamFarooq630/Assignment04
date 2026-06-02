@@ -1,0 +1,81 @@
+﻿@inherits LayoutComponentBase
+@inject IJSRuntime JS
+
+<div class="theme-wrapper @(isDarkMode ? "dark-theme" : "light-theme")">
+    <div class="page">
+        <div class="sidebar">
+            <NavMenu />
+        </div>
+
+        <main>
+            <div class="top-row px-4 d-flex align-items-center justify-content-between">
+                <h4 class="m-0 fw-bold header-title text-primary">
+                    Dynamic Theme Manager
+                </h4>
+
+                <button class="btn btn-theme-toggle fw-bold text-white shadow-sm d-flex align-items-center gap-2"
+                        @onclick="ToggleTheme">
+                    @if (isDarkMode)
+                    {
+                        <i class="bi bi-sun-fill text-warning fs-6"></i>
+                        <span>Switch to Light Mode</span>
+                    }
+                    else
+                    {
+                        <i class="bi bi-moon-fill fs-6"></i>
+                        <span>Switch to Dark Mode</span>
+                    }
+                </button>
+            </div>
+
+            <div class="content px-4 py-4">
+                @Body
+            </div>
+        </main>
+    </div>
+</div>
+
+@code {
+    private bool isDarkMode = false;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            try
+            {
+                var savedTheme = await JS.InvokeAsync<string>("localStorage.getItem", "app-theme");
+                if (savedTheme == "dark")
+                {
+                    isDarkMode = true;
+                    StateHasChanged();
+                }
+            }
+            catch
+            {
+                // JavaScript client isolation bridge safe fallback
+            }
+        }
+    }
+
+    private async Task ToggleTheme()
+    {
+        isDarkMode = !isDarkMode;
+
+        try
+        {
+            if (isDarkMode)
+            {
+                await JS.InvokeVoidAsync("localStorage.setItem", "app-theme", "dark");
+            }
+            else
+            {
+                await JS.InvokeVoidAsync("localStorage.setItem", "app-theme", "light");
+            }
+        }
+        catch
+        {
+            // Thread safe processing container state bound
+        }
+    }
+}

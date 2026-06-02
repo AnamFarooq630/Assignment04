@@ -1,0 +1,109 @@
+﻿@page "/"
+@rendermode InteractiveServer
+
+<PageTitle>To-Do List Application</PageTitle>
+
+<div class="container mt-5 d-flex flex-column align-items-center">
+    <div class="card shadow border-0 w-100" style="max-width: 550px; border-radius: 16px; overflow: hidden;">
+
+        <div class="card-header text-white text-center py-4" style="background: linear-gradient(135deg, #4f46e5, #6366f1);">
+            <h4 class="mb-1 fw-bold tracking-wide">Task Manager Dashboard</h4>
+            <p class="mb-0 opacity-75 small">Organize your daily workflow seamlessly</p>
+        </div>
+
+        <div class="card-body p-4 bg-light">
+            <div class="mb-4">
+                <label for="taskInput" class="form-label fw-bold text-secondary small text-uppercase tracking-wider">Add New Task</label>
+                <div class="input-group shadow-sm" style="border-radius: 8px; overflow: hidden;">
+                    <input type="text" id="taskInput" class="form-control border-0 px-3 py-2"
+                           @bind="newTask" placeholder="What needs to be done?" style="outline: none;" />
+                    <button class="btn text-white px-4 fw-semibold" @onclick="AddTask" style="background-color: #4f46e5;">
+                        Add Task
+                    </button>
+                </div>
+            </div>
+
+            <div class="d-flex justify-content-between align-items-center mt-4 mb-3">
+                <h5 class="fw-bold text-dark m-0">Your Current Tasks</h5>
+                <span class="badge rounded-pill px-3 py-2 fw-bold" style="background-color: #e0e7ff; color: #4f46e5;">
+                    @todoList.Count Active
+                </span>
+            </div>
+
+            @if (todoList.Count == 0)
+            {
+                <div class="card border-0 shadow-sm text-center p-4 bg-white" style="border-radius: 12px;">
+                    <div class="text-muted fs-2 mb-2">🎉</div>
+                    <h6 class="fw-bold text-secondary mb-1">No active tasks!</h6>
+                    <p class="text-muted small mb-0">Enjoy your day or add something new above.</p>
+                </div>
+            }
+            else
+            {
+                <div style="max-height: 320px; overflow-y: auto; padding-right: 4px;">
+                    <ul class="list-group mb-3">
+                        @foreach (var task in todoList)
+                        {
+                            <li class="list-group-item d-flex justify-content-between align-items-center shadow-sm mb-2 bg-white border-0 px-3 py-3"
+                                style="border-radius: 10px; border-left: 4px solid #4f46e5 !important;">
+                                <span class="text-dark fw-medium">@task</span>
+
+                                <button class="btn btn-link text-danger p-0 border-0 text-decoration-none btn-delete"
+                                        @onclick="() => DeleteTask(task)" title="Delete Task">
+                                    <span class="bi bi-trash3-fill fs-5"></span>
+                                </button>
+                            </li>
+                        }
+                    </ul>
+                </div>
+
+                <div class="mt-4 pt-2">
+                    <button class="btn btn-outline-danger w-100 fw-semibold py-2 d-flex align-items-center justify-content-center gap-2"
+                            @onclick="ClearAllTasks" style="border-radius: 8px; border-width: 2px;">
+                        <span class="bi bi-trash-fill"></span> Clear All Tasks
+                    </button>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<style>
+    /* Trash icon ke upar mouse le jaane se scale animation trigger hogi */
+    .btn-delete {
+        transition: transform 0.15s ease;
+    }
+
+        .btn-delete:hover {
+            transform: scale(1.15);
+            color: #dc3545 !important;
+        }
+</style>
+
+@code {
+    private string newTask { get; set; } = string.Empty;
+    private List<string> todoList { get; set; } = new List<string>();
+
+    private void AddTask()
+    {
+        if (!string.IsNullOrWhiteSpace(newTask))
+        {
+            todoList.Add(newTask.Trim());
+            newTask = string.Empty;
+        }
+    }
+
+    // SPECIFIC DELETE METHOD
+    private void DeleteTask(string taskToRemove)
+    {
+        if (todoList.Contains(taskToRemove))
+        {
+            todoList.Remove(taskToRemove);
+        }
+    }
+
+    private void ClearAllTasks()
+    {
+        todoList.Clear();
+    }
+}

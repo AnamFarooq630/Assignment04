@@ -1,0 +1,73 @@
+﻿@page "/"
+@using System.ComponentModel.DataAnnotations
+@rendermode InteractiveServer
+
+<PageTitle>Registration Form</PageTitle>
+
+<div class="container mt-5 d-flex flex-column align-items-center">
+    <div class="card shadow-sm w-100" style="max-width: 500px;">
+
+        <div class="card-header bg-success text-white text-center">
+            <h4 class="mb-0">User Registration</h4>
+        </div>
+
+        <div class="card-body">
+            <EditForm Model="@userModel" OnValidSubmit="HandleValidSubmit" FormName="RegistrationForm">
+
+                <DataAnnotationsValidator />
+
+                <div class="mb-3 text-start">
+                    <label for="firstName" class="form-label fw-bold">First Name:</label>
+                    <InputText id="firstName" class="form-control" @bind-Value="userModel.FirstName" placeholder="Enter first name" />
+                    <ValidationMessage For="@(() => userModel.FirstName)" class="text-danger small mt-1" />
+                </div>
+
+                <div class="mb-3 text-start">
+                    <label for="lastName" class="form-label fw-bold">Last Name:</label>
+                    <InputText id="lastName" class="form-control" @bind-Value="userModel.LastName" placeholder="Enter last name" />
+                    <ValidationMessage For="@(() => userModel.LastName)" class="text-danger small mt-1" />
+                </div>
+
+                <div class="mb-4 text-start">
+                    <label for="email" class="form-label fw-bold">Email Address:</label>
+                    <InputText id="email" class="form-control" @bind-Value="userModel.Email" placeholder="name@example.com" />
+                    <ValidationMessage For="@(() => userModel.Email)" class="text-danger small mt-1" />
+                </div>
+
+                <button type="submit" class="btn btn-success w-100 mb-3">Submit Registration</button>
+
+            </EditForm>
+
+            @if (isSubmittedSuccessfully)
+            {
+                <div class="alert alert-success mt-3 text-center fade show" role="alert">
+                    <h5 class="alert-heading mb-1 fw-bold">🎉 Form Submitted Successfully!</h5>
+                    <p class="mb-0 text-muted small">Thank you, <strong>@userModel.FirstName @userModel.LastName</strong>. Your profile has been registered.</p>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@code {
+    private UserModel userModel { get; set; } = new UserModel();
+    private bool isSubmittedSuccessfully { get; set; } = false;
+
+    private void HandleValidSubmit()
+    {
+        isSubmittedSuccessfully = true;
+    }
+
+    public class UserModel
+    {
+        [Required(ErrorMessage = "First name is required.")]
+        public string FirstName { get; set; } = string.Empty;
+
+        [Required(ErrorMessage = "Last name is required.")]
+        public string LastName { get; set; } = string.Empty;
+
+        [Required(ErrorMessage = "Email address is required.")]
+        [EmailAddress(ErrorMessage = "Please enter a valid email format.")]
+        public string Email { get; set; } = string.Empty;
+    }
+}

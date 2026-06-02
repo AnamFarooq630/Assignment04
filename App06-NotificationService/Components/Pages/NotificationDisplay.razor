@@ -1,0 +1,70 @@
+﻿@using App06_NotificationService.Services
+@inject NotificationConfig Config
+@inject NotificationService NotifyService
+@implements IDisposable
+
+<div class="card shadow-sm border-0" style="border-radius: 12px; overflow: hidden;">
+    <div class="card-header text-white py-3 d-flex justify-content-between align-items-center" style="background-color: #4f46e5;">
+        <h5 class="mb-0 fw-bold"><i class="bi bi-bell-fill me-2"></i>Live Notifications</h5>
+        <span class="badge bg-white text-dark rounded-pill px-2 py-1 small">@notificationsList.Count Active</span>
+    </div>
+    <div class="card-body bg-white p-4">
+
+        @if (notificationsList.Count == 0)
+        {
+            <p class="text-muted text-center my-4">No notifications available.</p>
+        }
+        else
+        {
+            <div class="d-flex flex-column gap-2">
+                @foreach (var message in notificationsList)
+                {
+                    @if (Config.NotificationStyle == "Compact")
+                    {
+                        <div class="p-2 text-start rounded border-start border-3 border-primary bg-light text-dark fw-medium small shadow-sm">
+                            <i class="bi bi-info-circle-fill text-primary me-2"></i> @message
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="p-3 text-start rounded border-start border-4 border-indigo bg-light text-dark shadow-sm">
+                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                <span class="fw-bold small text-primary">DETAILED LOG</span>
+                                <span class="text-muted small" style="font-size:0.75rem;">Live Pipeline</span>
+                            </div>
+                            <p class="mb-0 text-muted small">@message</p>
+                        </div>
+                    }
+                }
+            </div>
+        }
+
+    </div>
+</div>
+
+@code {
+    private List<string> notificationsList = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        // Subscribe to global configuration changes
+        Config.OnConfigChanged += RefreshDisplayData;
+        await LoadLatestNotifications();
+    }
+
+    private async Task LoadLatestNotifications()
+    {
+        notificationsList = await NotifyService.GetNotificationsAsync();
+    }
+
+    private async void RefreshDisplayData()
+    {
+        await LoadLatestNotifications();
+        await InvokeAsync(StateHasChanged); // Forces UI to refresh instantly
+    }
+
+    public void Dispose()
+    {
+        Config.OnConfigChanged -= RefreshDisplayData;
+    }
+}

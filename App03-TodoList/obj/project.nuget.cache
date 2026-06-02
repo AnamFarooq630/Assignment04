@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "tAtIpgLbY+4=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Hp\\Assignment04\\App03-TodoList\\App03-TodoList.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Hp\\.nuget\\packages\\microsoft.aspnetcore.app.internal.assets\\10.0.2\\microsoft.aspnetcore.app.internal.assets.10.0.2.nupkg.sha512"
+  ],
+  "logs": []
+}

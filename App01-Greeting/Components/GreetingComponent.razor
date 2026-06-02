@@ -1,0 +1,49 @@
+﻿@page "/app"
+@rendermode InteractiveServer
+
+<PageTitle>Greeting App</PageTitle>
+
+<div class="container mt-5 d-flex flex-column align-items-center">
+    <div class="card shadow-sm w-100" style="max-width: 500px;">
+
+        <div class="card-header bg-primary text-white text-center">
+            <h4 class="mb-0">Greeting Message</h4>
+        </div>
+
+        <div class="card-body">
+            <div class="mb-3 text-start">
+                <label for="nameInput" class="form-label fw-bold">Enter your name:</label>
+                <input type="text" id="nameInput" class="form-control form-control-lg"
+                       @bind="userName" @bind:event="oninput" placeholder="Type your name here..." />
+            </div>
+
+            <button class="btn btn-primary w-100 mb-3" @onclick="DisplayGreeting">
+                Generate Greeting
+            </button>
+
+            @if (showGreeting && !string.IsNullOrWhiteSpace(userName))
+            {
+                <div class="alert alert-success mt-2 text-center" role="alert">
+                    <h5 class="alert-heading mb-1 fw-bold">Hello, @userName!</h5>
+                    <p class="mb-0 text-muted small">Welcome to your Blazor Application.</p>
+                </div>
+            }
+            else
+            {
+                <div class="alert alert-info mt-2 text-center" role="alert">
+                    <p class="mb-0">Please enter a name and click the button to see the greeting.</p>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@code {
+    private string userName { get; set; } = string.Empty;
+    private bool showGreeting { get; set; } = false;
+
+    private void DisplayGreeting()
+    {
+        showGreeting = true;
+    }
+}

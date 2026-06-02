@@ -1,0 +1,44 @@
+﻿@page "/"
+@rendermode InteractiveServer
+
+<PageTitle>Interactive Counter App</PageTitle>
+
+<div class="container mt-5 d-flex flex-column align-items-center">
+    <div class="card shadow-sm border-0 w-100" style="max-width: 480px; border-radius: 12px; overflow: hidden;">
+
+        <div class="card-header text-white text-center py-4" style="background-color: #1e3a8a;">
+            <h4 class="mb-0 fw-bold tracking-wide">Interactive Counter</h4>
+        </div>
+
+        <div class="card-body p-4 bg-white text-center">
+
+            <div class="my-3">
+                <span class="text-uppercase tracking-wider fw-semibold text-muted small">Current Value</span>
+                <h1 class="display-2 fw-bold text-dark my-2">@currentCount</h1>
+            </div>
+
+            <div class="mb-4">
+                <button class="btn btn-primary btn-lg px-4 py-2 fw-semibold w-100" @onclick="IncrementCount" style="background-color: #2563eb; border-radius: 8px;">
+                    Increment Count
+                </button>
+            </div>
+
+            <hr class="text-muted opacity-25 my-4" />
+
+            <div class="mb-2 text-start">
+                <label for="manualCount" class="form-label fw-semibold text-muted small text-uppercase tracking-wider">Manual Adjustment</label>
+                <input type="number" id="manualCount" class="form-control px-3 py-2" @bind="currentCount" style="border-radius: 6px; border: 1px solid #ced4da;" />
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@code {
+    private int currentCount { get; set; } = 0;
+
+    private void IncrementCount()
+    {
+        currentCount++;
+    }
+}

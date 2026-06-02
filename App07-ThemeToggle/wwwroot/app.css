@@ -1,0 +1,200 @@
+/* ==========================================================================
+   APPLICATION 07 - TOTAL MASTER VISUAL SYNC & TYPOGRAPHY SYSTEM
+   ========================================================================== */
+
+/* --- Absolute Layout Structural Normalizer --- */
+.theme-wrapper {
+    display: flex;
+    min-height: 100vh;
+    width: 100%;
+}
+
+    .theme-wrapper .page {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        min-height: 100vh;
+    }
+
+/* --- Centering Content Main Dashboard Grid Area --- */
+.central-container-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 140px); /* Top bar vertical balance configuration */
+    width: 100%;
+    padding: 40px 20px;
+    box-sizing: border-box;
+}
+
+/* --- Central Card Layout Geometry Box --- */
+.main-theme-card {
+    width: 100%;
+    max-width: 540px;
+    border-radius: 16px !important;
+    overflow: hidden;
+    transition: background-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+/* --- Top Header Center Title Rule --- */
+.header-title {
+    font-size: 1.35rem;
+    letter-spacing: -0.5px;
+    margin: 0 auto !important; /* Perfect standalone display centering */
+    text-align: center;
+}
+
+/* --- Custom Synced Button Theme Toggle Architecture --- */
+.btn-theme-toggle {
+    border: none !important;
+    border-radius: 8px !important;
+    padding: 10px 20px !important;
+    font-size: 0.85rem !important;
+    font-weight: 700 !important;
+    color: #ffffff !important; /* Pure White Absolute Color Link */
+    min-width: 190px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: transform 0.15s ease, opacity 0.2s ease !important;
+    cursor: pointer;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
+}
+
+    .btn-theme-toggle:hover {
+        opacity: 0.92;
+    }
+
+    .btn-theme-toggle:active {
+        transform: scale(0.96);
+    }
+
+/* --------------------------------------------------------------------------
+   A. LIGHT MODE SPECIFIC MATRIX (Symmetrical Blue/Indigo Theme)
+   -------------------------------------------------------------------------- */
+.theme-wrapper.light-theme .page,
+.theme-wrapper.light-theme main {
+    background-color: #f8fafc !important; /* Matte Slate Light Layout Space */
+    color: #0f172a !important;
+}
+
+.theme-wrapper.light-theme .sidebar {
+    background-image: linear-gradient(180deg, #4f46e5 0%, #3730a3 100%) !important;
+}
+
+.theme-wrapper.light-theme .top-row {
+    background-color: #ffffff !important;
+    border-bottom: 1px solid #e2e8f0 !important;
+}
+
+.theme-wrapper.light-theme .header-title {
+    color: #4f46e5 !important;
+}
+/* --- Button matching card header exactly in Light Mode --- */
+.theme-wrapper.light-theme .btn-theme-toggle,
+.theme-wrapper.light-theme .brand-header {
+    background: linear-gradient(135deg, #4f46e5 0%, #3730a3 100%) !important;
+}
+
+    .theme-wrapper.light-theme .brand-header h4,
+    .theme-wrapper.light-theme .brand-header p {
+        color: #ffffff !important;
+    }
+
+.theme-wrapper.light-theme .text-box-accent {
+    background-color: #ffffff !important;
+    border-color: #4f46e5 !important;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05) !important;
+}
+
+.theme-wrapper.light-theme .card {
+    background-color: #ffffff !important;
+    border: 1px solid #e2e8f0 !important;
+}
+
+.theme-wrapper.light-theme .description-title {
+    color: #4f46e5 !important;
+}
+
+.theme-wrapper.light-theme .description-text {
+    color: #475569 !important;
+}
+
+.theme-wrapper.light-theme .engine-status-text {
+    color: #64748b !important;
+}
+
+.theme-wrapper.light-theme .status-footer {
+    border-color: #f1f5f9 !important;
+}
+
+/* --------------------------------------------------------------------------
+   B. DARK MODE SPECIFIC MATRIX (Symmetrical Dark Indigo Slate Theme)
+   -------------------------------------------------------------------------- */
+.theme-wrapper.dark-theme .page,
+.theme-wrapper.dark-theme main {
+    background-color: #0f172a !important; /* Deep Midnight Charcoal Space */
+    color: #f8fafc !important;
+}
+
+.theme-wrapper.dark-theme .sidebar {
+    background-image: linear-gradient(180deg, #1e1b4b 0%, #0f172a 100%) !important;
+    border-right: 1px solid #1e293b;
+}
+
+.theme-wrapper.dark-theme .top-row {
+    background-color: #1e293b !important;
+    border-bottom: 1px solid #334155 !important;
+}
+
+.theme-wrapper.dark-theme .header-title {
+    color: #818cf8 !important;
+}
+/* --- Button matching card header exactly in Dark Mode --- */
+.theme-wrapper.dark-theme .btn-theme-toggle,
+.theme-wrapper.dark-theme .brand-header {
+    background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%) !important;
+}
+
+    .theme-wrapper.dark-theme .brand-header h4,
+    .theme-wrapper.dark-theme .brand-header p {
+        color: #ffffff !important;
+    }
+
+.theme-wrapper.dark-theme .text-box-accent {
+    background-color: #1e293b !important;
+    border-color: #6366f1 !important;
+}
+
+.theme-wrapper.dark-theme .card {
+    background-color: #1e293b !important;
+    border: 1px solid #334155 !important;
+}
+
+.theme-wrapper.dark-theme .card-body {
+    background-color: #1e293b !important;
+}
+
+.theme-wrapper.dark-theme .description-title {
+    color: #818cf8 !important;
+}
+
+.theme-wrapper.dark-theme .description-text {
+    color: #cbd5e1 !important;
+}
+
+.theme-wrapper.dark-theme .engine-status-text {
+    color: #94a3b8 !important;
+}
+
+.theme-wrapper.dark-theme .status-footer {
+    border-color: #334155 !important;
+}
+
+.theme-wrapper.dark-theme h4,
+.theme-wrapper.dark-theme h5,
+.theme-wrapper.dark-theme p,
+.theme-wrapper.dark-theme span {
+    color: #f8fafc !important;
+}
