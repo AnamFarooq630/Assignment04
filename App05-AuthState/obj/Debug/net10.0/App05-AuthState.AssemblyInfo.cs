@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("App05-AuthState")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+2c5e94a1135d49266d40a95101dd19bda7be0c15")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+cd6c217fb50dc89bf3e89b453d394d5f78848997")]
 [assembly: System.Reflection.AssemblyProductAttribute("App05-AuthState")]
 [assembly: System.Reflection.AssemblyTitleAttribute("App05-AuthState")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
