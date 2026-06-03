@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("App07-ThemeToggle")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+2c5e94a1135d49266d40a95101dd19bda7be0c15")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+611858e76fafed0a229d0588997969c214c2075b")]
 [assembly: System.Reflection.AssemblyProductAttribute("App07-ThemeToggle")]
 [assembly: System.Reflection.AssemblyTitleAttribute("App07-ThemeToggle")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
