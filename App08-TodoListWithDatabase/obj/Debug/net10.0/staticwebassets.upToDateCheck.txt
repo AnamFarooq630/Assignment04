@@ -1,0 +1,11 @@
+wwwroot\app.css
+wwwroot\bootstrap\bootstrap.min.css
+wwwroot\bootstrap\bootstrap.min.css.map
+wwwroot\favicon.png
+C:\Users\Windows 10\.nuget\packages\microsoft.aspnetcore.app.internal.assets\10.0.2\build\..\_framework\blazor.web.js
+C:\Users\Windows 10\.nuget\packages\microsoft.aspnetcore.app.internal.assets\10.0.2\build\..\_framework\blazor.server.js
+E:\Vp_Project\Assignment#4\Application8\wwwroot\app.css
+E:\Vp_Project\Assignment#4\Application8\wwwroot\bootstrap\bootstrap.min.css
+E:\Vp_Project\Assignment#4\Application8\wwwroot\bootstrap\bootstrap.min.css.map
+C:\Users\Windows 10\.nuget\packages\microsoft.aspnetcore.app.internal.assets\10.0.2\_framework\blazor.web.js
+C:\Users\Windows 10\.nuget\packages\microsoft.aspnetcore.app.internal.assets\10.0.2\_framework\blazor.server.js

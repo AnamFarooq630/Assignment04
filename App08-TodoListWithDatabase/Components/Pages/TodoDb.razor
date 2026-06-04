@@ -1,0 +1,139 @@
+@page "/todo-db"
+@rendermode InteractiveServer
+@inject Application8.Services.TodoDbService DbService
+
+<PageTitle>Todo –TaskDB</PageTitle>
+
+<!-- Hero Banner -->
+<div class="todo-hero">
+    <h2>✅ Todo List with Database</h2>
+</div>
+
+<!-- Add Task Input -->
+<div class="todo-input-row">
+    <input class="form-control"
+           @bind="newTask"
+           @bind:event="oninput"
+           @onkeydown="HandleKeyDown"
+           placeholder="✏️  Type a new task and press Enter or click Add..." />
+    <button class="btn btn-primary" @onclick="AddTask" disabled="@string.IsNullOrWhiteSpace(newTask)">
+        ＋ Add Task
+    </button>
+</div>
+
+<!-- Edit Panel -->
+@if (editingId.HasValue)
+{
+    <div class="edit-card">
+        <label>✏️ Edit Task</label>
+        <input class="form-control" @bind="editText" />
+        <div class="mt-2" style="display:flex;gap:.5rem;">
+            <button class="btn-save" @onclick="SaveEdit">💾 Save</button>
+            <button class="btn-cancel" @onclick="CancelEdit">✕ Cancel</button>
+        </div>
+    </div>
+}
+
+<!-- Task List -->
+@if (tasks.Count == 0)
+{
+    <div class="empty-state">
+        <div class="empty-icon">📭</div>
+        <p>No tasks yet — add your first one above!</p>
+    </div>
+}
+else
+{
+    <!-- Stats bar -->
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.8rem;font-size:.88rem;color:#6b7280;">
+        <span>
+            <strong style="color:#5b67f7;">@tasks.Count</strong> total &nbsp;|&nbsp;
+            <strong style="color:#22c55e;">@tasks.Count(t => t.IsCompleted)</strong> done &nbsp;|&nbsp;
+            <strong style="color:#f59e0b;">@tasks.Count(t => !t.IsCompleted)</strong> pending
+        </span>
+        <button class="btn-clear-all" @onclick="ClearAll">🗑 Clear All</button>
+    </div>
+
+    <ul class="task-list">
+        @foreach (var item in tasks)
+        {
+            <li class="task-item @(item.IsCompleted ? "completed" : "")">
+                <div style="display:flex;align-items:center;flex:1;min-width:0;">
+                    <input type="checkbox"
+                           class="task-check"
+                           @bind="item.IsCompleted"
+                           @bind:after="() => UpdateTask(item)" />
+                    <span class="task-text @(item.IsCompleted ? "done" : "")">@item.Task</span>
+                    <span class="task-date">@item.CreatedAt.ToString("dd MMM, HH:mm")</span>
+                </div>
+                <div class="task-actions">
+                    <button class="btn-icon btn-edit" @onclick="() => StartEdit(item)" title="Edit">✏️</button>
+                    <button class="btn-icon btn-del"  @onclick="() => DeleteTask(item.Id)" title="Delete">🗑</button>
+                </div>
+            </li>
+        }
+    </ul>
+}
+
+@code {
+    private List<Application8.Models.TodoItem> tasks = new();
+    private string newTask = string.Empty;
+    private int? editingId = null;
+    private string editText = string.Empty;
+
+    protected override void OnInitialized() => LoadTasks();
+
+    private void LoadTasks() => tasks = DbService.GetAll();
+
+    private void HandleKeyDown(KeyboardEventArgs e)
+    {
+        if (e.Key == "Enter") AddTask();
+    }
+
+    private void AddTask()
+    {
+        if (!string.IsNullOrWhiteSpace(newTask))
+        {
+            DbService.Add(newTask.Trim());
+            newTask = string.Empty;
+            LoadTasks();
+        }
+    }
+
+    private void DeleteTask(int id)
+    {
+        DbService.Delete(id);
+        LoadTasks();
+    }
+
+    private void UpdateTask(Application8.Models.TodoItem item)
+    {
+        DbService.Update(item.Id, item.Task, item.IsCompleted);
+        LoadTasks();
+    }
+
+    private void ClearAll()
+    {
+        DbService.DeleteAll();
+        LoadTasks();
+    }
+
+    private void StartEdit(Application8.Models.TodoItem item)
+    {
+        editingId = item.Id;
+        editText  = item.Task;
+    }
+
+    private void SaveEdit()
+    {
+        if (editingId.HasValue && !string.IsNullOrWhiteSpace(editText))
+        {
+            var item = tasks.First(t => t.Id == editingId.Value);
+            DbService.Update(editingId.Value, editText.Trim(), item.IsCompleted);
+            editingId = null;
+            LoadTasks();
+        }
+    }
+
+    private void CancelEdit() => editingId = null;
+}
